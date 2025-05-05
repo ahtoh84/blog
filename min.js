@@ -30,3 +30,19 @@ document.addEventListener('DOMContentLoaded', () => {
                   (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme);
   })();
+
+// iMessage 效果
+const targets = document.querySelectorAll('.bubble, .interstitial, .single-image');
+
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle("visible", entry.isIntersecting)
+    })
+  },
+  { threshold: .2}
+);
+
+targets.forEach( target => {
+  observer.observe(target)
+});
