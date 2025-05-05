@@ -30,35 +30,3 @@ document.addEventListener('DOMContentLoaded', () => {
                   (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme);
   })();
-
-// iMessage 效果
-document.addEventListener('DOMContentLoaded', () => {
-    const targets = document.querySelectorAll('.bubble, .interstitial, .single-image');
-    
-    // 检查是否找到目标元素
-    if (targets.length === 0) {
-        console.warn('未找到iMessage目标元素');
-        return;
-    }
-
-    const observer = new IntersectionObserver(
-        entries => {
-            entries.forEach(entry => {
-                entry.target.classList.toggle("visible", entry.isIntersecting)
-            })
-        },
-        { threshold: .2 }
-    );
-
-    targets.forEach(target => {
-        observer.observe(target);
-    });
-
-    // 清理函数
-    window.addEventListener('unload', () => {
-        targets.forEach(target => {
-            observer.unobserve(target);
-        });
-        observer.disconnect();
-    });
-});
